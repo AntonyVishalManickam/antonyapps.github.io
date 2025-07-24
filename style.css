@@ -1,0 +1,47 @@
+body {
+  font-family: sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #2196f3;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  padding: 20px;
+}
+
+section.app {
+  background: white;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px #ccc;
+}
+
+section.app img {
+  width: 100%;
+  max-width: 300px;
+  display: block;
+}
+
+section.app h2 {
+  margin: 10px 0 5px;
+}
+
+section.app p {
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  background: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
