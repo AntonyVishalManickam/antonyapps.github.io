@@ -4,282 +4,65 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>SMAIV TECH APP STORE</title>
-  <meta name="description" content="SMAIV TECH APP STORE - Free & Paid Android apps" />
-  <style>
-    :root{
-      --bg:#0b1020; --card:#0f1724; --accent:#06b6d4; --muted:#9ca3af; --glass: rgba(255,255,255,0.03);
-      --radius:12px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      background:linear-gradient(180deg,#071021,#081427);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      min-height:100vh; padding-bottom:84px;
-    }
-    header{
-      display:flex;align-items:center;gap:12px;padding:16px;
-      background:linear-gradient(90deg,#071021,#081427);
-      position:sticky;top:0;backdrop-filter:blur(6px);z-index:30;border-bottom:1px solid rgba(255,255,255,0.02)
-    }
-    .logo{
-      width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#3b82f6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042033
-    }
-    .title{font-size:18px;font-weight:700}
-    .search{margin-left:16px;flex:1;max-width:640px}
-    .search input{width:100%;padding:10px 12px;border-radius:10px;border:0;background:rgba(255,255,255,0.02);color:inherit}
-    nav.tabs{display:flex;gap:8px;padding:12px 18px;overflow:auto}
-    .tab{padding:8px 12px;border-radius:999px;background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;border:1px solid rgba(255,255,255,0.02)}
-    .tab.active{background:linear-gradient(90deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));color:#fff}
-    .container{max-width:1100px;margin:18px auto;padding:0 18px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-    .card{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 8px 28px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:8px}
-    .icon{width:84px;height:84px;border-radius:16px;background:linear-gradient(135deg,#f97316,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:34px}
-    .meta{display:flex;gap:12px;align-items:center}
-    h3{margin:0;font-size:16px}
-    .small{color:var(--muted);font-size:13px}
-    .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
-    .btn-row{display:flex;gap:8px;margin-top:auto}
-    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),#3b82f6);color:#041426}
-    .btn.ghost{background:rgba(255,255,255,0.02);color:var(--muted)}
-    footer.bottom{position:fixed;left:12px;right:12px;bottom:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(2,6,23,0.6)}
-    a.link{color:inherit;text-decoration:none}
-    /* detail modal */
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.5);z-index:60}
-    .modal.show{display:flex}
-    .modal-card{width:min(880px,96%);background:var(--card);padding:18px;border-radius:12px;box-shadow:0 18px 60px rgba(2,6,23,0.7)}
-    .row{display:flex;gap:12px;align-items:center}
-    @media (max-width:720px){ .meta{flex-direction:column;align-items:flex-start}.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))} .icon{width:72px;height:72px} }
-  </style>
+  <meta name="description" content="SMAIV TECH APP STORE - free Android apps" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <header class="topbar">
+    <div class="logo">ST</div>
+    <div class="title">SMAIV TECH APP STORE</div>
+    <div class="searchwrap">
+      <input id="search" placeholder="Search apps, developers, tags..." />
+    </div>
+  </header>
 
-<header>
-  <div class="logo">ST</div>
-  <div class="title">SMAIV TECH APP STORE</div>
-  <div class="search"><input id="search" placeholder="Search apps, developers, tags..." /></div>
-  <div style="margin-left:12px;color:var(--muted);font-size:13px">India</div>
-</header>
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-cat="all">Apps</button>
+    <button class="tab" data-cat="games">Games</button>
+    <button class="tab" data-cat="offers">Offers</button>
+  </nav>
 
-<nav class="tabs" id="tabs">
-  <div class="tab active" data-cat="all" onclick="setTab(event)">Apps</div>
-  <div class="tab" data-cat="games" onclick="setTab(event)">Games</div>
-  <div class="tab" data-cat="offers" onclick="setTab(event)">Offers</div>
-  <div class="tab" data-cat="paid" onclick="setTab(event)">Paid</div>
-</nav>
+  <main class="container">
+    <section>
+      <h2>Recommended</h2>
+      <p class="hint">Click a card for details. Ratings you give are stored in your browser.</p>
+      <div id="grid" class="grid" aria-live="polite"></div>
+    </section>
+  </main>
 
-<main class="container">
-  <section>
-    <h2 style="margin:0 0 8px 0">Recommended</h2>
-    <p class="small">Click a card for details. Paid apps use Razorpay Payment Links (you create and paste the link).</p>
-    <div id="grid" class="grid" aria-live="polite"></div>
-  </section>
-</main>
+  <footer class="bottom">
+    <div>© SMAIV TECH — Host: GitHub Pages</div>
+  </footer>
 
-<footer class="bottom">
-  <div style="max-width:980px;width:100%;display:flex;justify-content:space-between;align-items:center;padding:0 14px">
-    <div class="small">© SMAIV TECH</div>
-    <div class="small">Made with ❤️ — Host: GitHub Pages</div>
-  </div>
-</footer>
-
-<!-- App detail modal -->
-<div id="modal" class="modal" onclick="if(event.target.id==='modal') closeModal()">
-  <div class="modal-card" role="dialog" aria-modal="true">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div style="display:flex;gap:12px;align-items:center">
-        <div id="modalIcon" class="icon">📱</div>
+  <!-- Detail modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div id="modalIcon" class="icon-large"></div>
         <div>
           <h3 id="modalTitle"></h3>
           <div id="modalMeta" class="small"></div>
         </div>
+        <button id="modalClose" class="btn ghost">Close</button>
       </div>
-      <div><button onclick="closeModal()" class="btn ghost">Close</button></div>
-    </div>
 
-    <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+      <div id="modalDesc" class="desc"></div>
 
-    <div id="modalDesc" class="small" style="line-height:1.5"></div>
-
-    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
       <div id="modalTags" class="tags"></div>
-    </div>
 
-    <div style="margin-top:16px;display:flex;gap:10px">
-      <a id="freeDownload" class="btn primary link" style="display:none" target="_blank" rel="noopener">Download</a>
-      <a id="paidBuy" class="btn primary link" style="display:none" target="_blank" rel="noopener">Buy — ₹0</a>
-      <button id="closeBtn" class="btn ghost" onclick="closeModal()">Close</button>
+      <div class="modal-actions">
+        <a id="modalDownload" class="btn primary" target="_blank" rel="noopener">Download</a>
+
+        <div class="rating-block">
+          <div class="small">Rate this app:</div>
+          <div id="ratingStars" class="stars"></div>
+          <div id="ratingInfo" class="small muted"></div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-/*
-  Minimal static store:
-  - apps: edit this array to add/remove apps
-  - For free apps: set price: 0 and download: direct file link (Google Drive direct, GitHub raw, S3 signed, etc.)
-  - For paid apps: set price > 0 and payment_link: (Razorpay Payment Link URL) — buyers pay and are redirected to the download link you put in Razorpay.
-*/
-
-/* ---------- EDIT YOUR APPS BELOW ---------- */
-const apps = [
-  {
-    id: 'smaiv-sample-free',
-    name: 'SMAIV Notes',
-    developer: 'SMAIV TECH',
-    category: 'apps',
-    rating: 4.6,
-    size: '8 MB',
-    price: 0,                 // 0 => free
-    image: 'https://via.placeholder.com/240x240.png?text=SMAIV+Notes',
-    download: 'https://example.com/downloads/smaiv-notes.apk', // direct link for free apps
-    short: 'Simple notes app with quick widgets and backup.'
-  },
-  {
-    id: 'smaiv-sample-paid',
-    name: 'SMAIV Pro Photo Editor',
-    developer: 'SMAIV TECH',
-    category: 'apps',
-    rating: 4.7,
-    size: '42 MB',
-    price: 149,               // >0 => paid (INR)
-    image: 'https://via.placeholder.com/240x240.png?text=Pro+Photo',
-    payment_link: 'https://rzp.io/i/your-example-payment-link', // create in Razorpay dashboard
-    short: 'Advanced filters & one-click enhance. Buy once, use forever.'
-  },
-  {
-    id: 'smaiv-game',
-    name: 'SMAIV Runner (Arcade)',
-    developer: 'SMAIV GAMES',
-    category: 'games',
-    rating: 4.4,
-    size: '62 MB',
-    price: 0,
-    image: 'https://via.placeholder.com/240x240.png?text=SMAIV+Runner',
-    download: 'https://example.com/downloads/smaiv-runner.apk',
-    short: 'Endless runner with powerups & local leaderboards.'
-  }
-];
-/* ---------- STOP EDITING APPS ---------- */
-
-const grid = document.getElementById('grid');
-const tabs = document.getElementById('tabs');
-const searchInput = document.getElementById('search');
-
-let currentFilter = 'all';
-
-function moneyFormatINR(n){
-  if(!n) return 'Free';
-  return '₹' + n.toString();
-}
-
-function renderGrid(){
-  const q = (searchInput.value || '').trim().toLowerCase();
-  grid.innerHTML = '';
-  const filtered = apps.filter(app => {
-    if(currentFilter === 'paid') {
-      if(!(app.price && app.price > 0)) return false;
-    } else if(currentFilter !== 'all' && app.category !== currentFilter) return false;
-    if(!q) return true;
-    return (app.name+app.developer+(app.short||'')+(app.category||'')).toLowerCase().includes(q);
-  });
-  if(filtered.length === 0){
-    grid.innerHTML = '<div style="grid-column:1/-1;padding:36px;border-radius:12px;background:rgba(255,255,255,0.02);text-align:center;color:var(--muted)">No apps found.</div>';
-    return;
-  }
-
-  for(const a of filtered){
-    const el = document.createElement('div');
-    el.className = 'card';
-    el.innerHTML = `
-      <div style="display:flex;gap:12px;align-items:center">
-        <div style="flex:0 0 auto">
-          <img src="${a.image}" alt="${a.name}" style="width:84px;height:84px;border-radius:14px;object-fit:cover" />
-        </div>
-        <div style="flex:1">
-          <div style="display:flex;justify-content:space-between;align-items:start">
-            <div>
-              <h3>${a.name}</h3>
-              <div class="small">${a.developer} · ${a.rating} ★ · ${a.size}</div>
-            </div>
-            <div style="text-align:right">
-              <div style="font-weight:700">${a.price && a.price > 0 ? moneyFormatINR(a.price) : 'Free'}</div>
-            </div>
-          </div>
-          <div class="tags" style="margin-top:8px">
-            <div class="tag">${a.category}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="btn-row">
-        <button class="btn ghost" onclick="openDetail('${a.id}')">Details</button>
-        ${a.price && a.price > 0
-          ? `<a class="btn primary link" href="${a.payment_link || '#'}" target="_blank" rel="noopener" onclick="trackBuy('${a.id}')">Buy — ${moneyFormatINR(a.price)}</a>`
-          : `<a class="btn primary link" href="${a.download || '#'}" target="_blank" rel="noopener" onclick="trackDownload('${a.id}')">Download</a>`
-        }
-      </div>
-    `;
-    grid.appendChild(el);
-  }
-}
-
-function setTab(e){
-  // event target might be a child; find tab element
-  const el = (e.currentTarget || e.target).closest('.tab');
-  if(!el) return;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  currentFilter = el.dataset.cat;
-  renderGrid();
-}
-
-function openDetail(id){
-  const app = apps.find(x => x.id === id);
-  if(!app) return;
-  document.getElementById('modal').classList.add('show');
-  document.getElementById('modalIcon').innerHTML = `<img src="${app.image}" alt="${app.name}" style="width:84px;height:84px;border-radius:12px;object-fit:cover" />`;
-  document.getElementById('modalTitle').textContent = app.name;
-  document.getElementById('modalMeta').textContent = `${app.developer} · ${app.rating} ★ · ${app.size} · ${app.price && app.price>0 ? moneyFormatINR(app.price) : 'Free'}`;
-  document.getElementById('modalDesc').textContent = app.short || '';
-  const tags = document.getElementById('modalTags');
-  tags.innerHTML = '';
-  (app.tags || [app.category || '']).forEach(t => {
-    const s = document.createElement('div'); s.className='tag'; s.textContent = t; tags.appendChild(s);
-  });
-
-  const dl = document.getElementById('freeDownload');
-  const buy = document.getElementById('paidBuy');
-  if(app.price && app.price > 0){
-    dl.style.display = 'none';
-    buy.style.display = 'inline-block';
-    buy.href = app.payment_link || '#';
-    buy.textContent = `Buy — ${moneyFormatINR(app.price)}`;
-  } else {
-    buy.style.display = 'none';
-    dl.style.display = 'inline-block';
-    dl.href = app.download || '#';
-    dl.textContent = 'Download';
-  }
-}
-
-function closeModal(){
-  document.getElementById('modal').classList.remove('show');
-}
-
-function trackBuy(id){ /* placeholder: you can attach analytics here */ }
-function trackDownload(id){ /* placeholder: you can attach analytics here */ }
-
-/* search */
-search.addEventListener('input', ()=> renderGrid());
-renderGrid();
-
-/* keyboard: escape closes modal */
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
-
-</script>
+  <script src="apps.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
