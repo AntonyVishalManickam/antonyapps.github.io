@@ -1,27 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Antony Apps Store</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMAIV TECH APP STORE</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f5f5f5;
+    }
+    header {
+        background: #34a853;
+        color: white;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
+    nav {
+        display: flex;
+        justify-content: space-around;
+        background: white;
+        border-bottom: 1px solid #ddd;
+    }
+    nav button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        background: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    nav button.active {
+        border-bottom: 3px solid #34a853;
+        color: #34a853;
+        font-weight: bold;
+    }
+    .app-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+    .app-card {
+        background: white;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .app-card img {
+        width: 80px;
+        height: 80px;
+        border-radius: 15px;
+        margin-bottom: 10px;
+    }
+    .app-card h3 {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+    .app-card p {
+        color: gray;
+        font-size: 14px;
+        margin: 2px 0;
+    }
+    .download-btn {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 6px 12px;
+        background: #34a853;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Antony's App Store</h1>
-    <p>Download my free apps with features you’ll love!</p>
-  </header>
 
-  <main>
-    <section class="app">
-      <img src="images/imagesapp1.png" alt="App 1 Image">
-      <h2>Smart Voice Lock</h2>
-      <p>A voice-based lock system with stylish UI and offline mode.</p>
-      <a href="https://yourdrive.com/app1.apk" download>🔽 Download App</a>
-    </section>
-  </main>
+<header>SMAIV TECH APP STORE</header>
 
-  <footer>
-    <p>&copy; 2025 Antony Vishal</p>
-  </footer>
+<nav>
+    <button class="active" onclick="filterApps('all')">Apps</button>
+    <button onclick="filterApps('games')">Games</button>
+    <button onclick="filterApps('offers')">Offers</button>
+</nav>
+
+<div class="app-list" id="appList"></div>
+
+<script>
+const apps = [
+    {
+        name: "Sample App 1",
+        image: "https://via.placeholder.com/80",
+        category: "apps",
+        rating: "4.5 ★",
+        size: "12 MB",
+        link: "#"
+    },
+    {
+        name: "Sample Game",
+        image: "https://via.placeholder.com/80",
+        category: "games",
+        rating: "4.8 ★",
+        size: "50 MB",
+        link: "#"
+    },
+    {
+        name: "Special Offer App",
+        image: "https://via.placeholder.com/80",
+        category: "offers",
+        rating: "4.2 ★",
+        size: "8 MB",
+        link: "#"
+    }
+];
+
+function renderApps(filter) {
+    const appList = document.getElementById("appList");
+    appList.innerHTML = "";
+    apps.filter(app => filter === 'all' || app.category === filter)
+        .forEach(app => {
+            appList.innerHTML += `
+                <div class="app-card">
+                    <img src="${app.image}" alt="${app.name}">
+                    <h3>${app.name}</h3>
+                    <p>${app.rating}</p>
+                    <p>${app.size}</p>
+                    <a class="download-btn" href="${app.link}" target="_blank">Download</a>
+                </div>
+            `;
+        });
+}
+
+function filterApps(category) {
+    document.querySelectorAll("nav button").forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+    renderApps(category === "apps" ? "apps" : category === "games" ? "games" : category);
+}
+
+renderApps('all');
+</script>
+
 </body>
-</html>
+  </html>
